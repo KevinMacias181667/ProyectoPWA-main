@@ -1,0 +1,41 @@
+{
+    "navbar": {
+        "Heading": "Recordatorios",
+        "ButtonAdd": "Crear Recordatorio",
+        "ButtonLO": "Cerrar Sesión",
+        "ButtonP": "Perfil"
+    },
+    "index": {
+        "CatCo": "Completo",
+        "CatIn": "Incompleto",
+        "title": "Recordatorio"
+    },
+    "Manage": {
+        "titleNota": "Titúlo",
+        "Update": "Modificar Nota",
+        "New": "Crear nota",
+        "Addt": "Añade un titulo",
+        "AddD": "Añade una descripción",
+        "Description": "Descripción",
+        "DescriptionN": "La descripción debe contener mas de 10 caracteres",
+        "Question": "¿Está completo?"
+    },
+    "Single":{
+        "Delete": "Borrar"
+    },
+    "Profile": {
+        "Email": "Correo Electronico",
+        "User": "Nombre de usuario",
+        "Web": "Sitio Web",
+        "Bio": "Bio",
+        "Upd": "Actualizar",
+        "BioD": "Añade una descripción",
+        "WebD": "Añade tu sitio web",
+        "UserD": "Añade un nombre de usuario",
+        "AddI": "Cargar Imagen de perfil",
+        "Adding": "Cargando ......."
+    },
+    "Selector":{
+        "select": "Idioma"
+    }
+}

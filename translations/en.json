@@ -1,0 +1,41 @@
+{
+    "navbar": {
+        "Heading": "Reminders",
+        "ButtonAdd": "Add Reminder",
+        "ButtonLO": "LogOut",
+        "ButtonP": "Profile"
+    },
+    "index": {
+        "CatCo": "Complete",
+        "CatIn": "Incomplete",
+        "title": "Reminder"
+    },
+    "Manage": {
+        "titleNota": "title",
+        "Update": "Modificar Nota",
+        "New": "Crear nota",
+        "Addt": "Add your title here",
+        "AddD": "Add your description here",
+        "Description": "Description",
+        "Question": "Is Completed?",
+        "DescriptionN": "Description must have more than 10 characters."
+    },
+    "Single":{
+        "Delete": "Delete"
+    },
+    "Profile": {
+        "Email": "Email",
+        "User": "Username",
+        "Web": "Website",
+        "Bio": "Bio",
+        "Upd": "Update",
+        "BioD": "Add a description",
+        "WebD": "Add your website here",
+        "UserD": "Add your username here",
+        "AddI": "Add a profile image",
+        "Adding": "Adding ......."
+    },
+    "Selector":{
+        "select": "language"
+    }
+}
