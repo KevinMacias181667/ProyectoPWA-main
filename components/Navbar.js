@@ -16,9 +16,9 @@ const Navbar = ({ onOpen }) => {
     try {
       setIsLogoutLoading(true);
       await supabaseClient.auth.signOut();
-      router.push("/signin");
+      locale.push("/signin");
     } catch (error) {
-      router.push("/signin");
+      locale.push("/signin");
     } finally {
       setIsLogoutLoading(false);
     }

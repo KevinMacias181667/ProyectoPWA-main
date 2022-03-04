@@ -18,13 +18,13 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { ImagenPlaceHolder } from 'react-imagen-placeholder';
+
 import { useEffect, useState } from "react"
 import { supabaseClient } from "../lib/supabaseClient"
 import { useRouter } from "next/router"
 import en from "../translations/en.json"
 import es from "../translations/es.json"
-import React, { Component } from 'react'
+
 
 
 
@@ -33,14 +33,21 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
   const [description, setDescription] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [isLoading, setIsLoading] = useState("");
+  ///////////////////////////////////////
+  const [imagen, setImg] = useState("");
+  ///////////////////////////////////////
   const [errorMessage, setErrorMessage] = useState("");
   const {locale, locales} = useRouter();
   const t = locale === "en" ? en : es;
+
+
+
   useEffect(() => {
     if (todo) {
       setTitle(todo.title);
       setDescription(todo.description);
       setIsComplete(todo.isComplete);
+      setImg(todo.imagen);  // coloque este mero :v 
     }
   }, [todo]);
 
@@ -51,19 +58,22 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
       setErrorMessage("Description must have more than 10 characters");
       return;
     }
+    /////
     setIsLoading(true);
     const user = supabaseClient.auth.user();
     let supabaseError;
+
     if (todo) {
       const { error } = await supabaseClient
         .from("reminder")
-        .update({ title, description, isComplete, user_id: user.id })
+
+        .update({ title, description, isComplete,imagen, user_id: user.id })
         .eq("id", todo.id);
       supabaseError = error;
     } else {
       const { error } = await supabaseClient
         .from("reminder")
-        .insert([{ title, description, isComplete, user_id: user.id }]);
+        .insert([{ title, description, isComplete,imagen, user_id: user.id }]);
       supabaseError = error;
     }
 
@@ -75,6 +85,24 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
     }
   };
 
+  //imagen
+  const handleChange = async (event) => {
+
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      console.log(reader.result);
+      setImg(reader.result);
+    };
+    reader.onerror = function (error) {
+
+      console.log("Error: ", error);
+    };
+  };
+//imagen 
+
   const closeHandler = () => {
     setTitle("");
     setDescription("");
@@ -85,6 +113,7 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
 
  
   return (
+
     <Modal
       isOpen={isOpen}
       onClose={onClose}
@@ -103,6 +132,7 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
                 <Text textAlign="center">{errorMessage}</Text>
               </Alert>
             )}
+
             <FormControl isRequired={true}>
               <FormLabel>{t.Manage.titleNota}</FormLabel>
               <Input
@@ -122,9 +152,19 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
               />
               <FormHelperText>
                 {t.Manage.DescriptionN}
+
               </FormHelperText>
             </FormControl>
+{/* ///formcontrol de imagen */}
+            <FormControl>
+             
+             <input type="file" onChange={handleChange} /> 
+         
+             <img src={imagen} alt="imagen" handleChange={(event) => setImg(event.target.value)} />
+             
+             </FormControl>
 
+{/* //termino de formcontrol de imagen */}
             <FormControl mt={4}>
               <FormLabel>{t.Manage.Question}</FormLabel>
               <Switch
@@ -134,26 +174,18 @@ const ManageTodo = ({ isOpen, onClose, initialRef, todo, setTodo }) => {
               />
             </FormControl>
           </ModalBody>
-
+       
           <ModalFooter>
             <ButtonGroup spacing="3">
-              <Button
-                onClick={closeHandler}
-                colorScheme="red"
-                type="reset"
-                isDisabled={isLoading}
-              >
-                Cancel
-              </Button>
-               
+              <Button onClick={closeHandler} colorScheme="red" type="reset" isDisabled={isLoading}>Cancel  </Button>
 
-               
-                <ImagenPlaceHolder src="" alt=" "width={100}height={100}placeHolder={true}/>
+             <Button colorScheme="blue" type="submit" isLoading={isLoading}> {todo ? "Update" : "Save"} </Button>
               
-              <Button colorScheme="blue" type="submit" isLoading={isLoading}>
-                {todo ? "Update" : "Save"}
-              </Button>
             </ButtonGroup>
+
+
+            
+
           
                   
           </ModalFooter>
